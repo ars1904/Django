@@ -5,17 +5,16 @@
 {% endblock %}
 
 {% block header %}
-Пост про {{object.name}}
+Тег {{object.name}}
 {% endblock %}
 
 {% block content %}
                 <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <h1>{{name}}</h1>
                     <div class="col-md-10 col-lg-8 col-xl-7">
-                        {% if object.image %}
-                            <img src="{{object.image.url}}" width="300">
-                        {% endif %}
                         </br>
-                        Текст поста про {{object.name}}
+                        Тег {{object.name}}
                     </div>
+                    <a href="{% url 'hh:tag_update' pk=object.pk %}">Изменить</a>
                 </div>
 {% endblock %}
