@@ -9,4 +9,10 @@ class Articles(Model):
     url = URLField()
     image=models.ImageField(upload_to='posts', null=True, blank=True)
 
+class Tag(models.Model):
+    name = models.CharField(max_length=16, unique=True)
+
+    def __str__(self):
+        return self.name
+
 

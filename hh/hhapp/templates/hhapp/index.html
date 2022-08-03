@@ -12,9 +12,9 @@
 
             <div class="row gx-4 gx-lg-5 justify-content-center">
                 <div class="col-md-10 col-lg-8 col-xl-7">
-                    {% for item in posts %}
+                    {% for item in object_list %}
                     <div class="post-preview">
-                        <a href="{% url 'hh:post' id=item.id %}">
+                        <a href="{% url 'hh:post' pk=item.pk %}">
                             <h2 class="post-title">{{item.name}}</h2>
                             <h3 class="post-subtitle">Дата публикации: {{item.published}}</h3>
                         </a>

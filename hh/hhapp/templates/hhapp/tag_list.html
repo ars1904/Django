@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}
+Список тегов
+{% endblock %}
+
+{% block header %}
+Список тегов
+{% endblock %}
+
+{% block content %}
+<h1>{{name}}</h1>
+  <ul>
+    {% for item in tags %}
+      <li>
+        <a href="{% url 'hh:tag_detail' pk=item.pk %}">
+          {{item.name}}
+        </a>
+        /
+        <a href="{% url 'hh:tag_update' pk=item.pk %}">Изменить</a>
+        /
+        <a href="{% url 'hh:tag_delete' pk=item.pk %}">Удалить</a>
+      </li>
+    {% endfor %}
+    <a href="{% url 'hh:tag_create' %}">Создать</a>
+  </ul>
+{% endblock %}
