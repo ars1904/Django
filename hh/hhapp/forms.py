@@ -12,4 +12,5 @@ class PostForm(forms.ModelForm):
     tags = forms.ModelMultipleChoiceField(queryset=Tag.objects.all(), widget=forms.CheckboxSelectMultiple())
     class Meta:
         model=Articles
-        fields='__all__'
+        fields = ['published', 'name', 'url', 'image',]
+        #exclude=('user',)
