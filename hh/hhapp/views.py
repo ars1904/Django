@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required,user_passes_test
 from django.shortcuts import render, get_object_or_404, HttpResponseRedirect
 from .models import Articles, Tag
 from .forms import ContactForm, PostForm
@@ -5,8 +6,12 @@ from django.core.mail import send_mail
 from django.urls import reverse, reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView,DeleteView
 from django.views.generic.base import ContextMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+
+
 
 # Create your views here.
+
 class main_view(ListView):
     model=Articles
     template_name='hhapp/index.html'
@@ -33,15 +38,24 @@ def contact_view(request):
         return render(request, 'hhapp/contact.html', context={'form': form})
 
 
-class post(DetailView):
+class post(UserPassesTestMixin,DetailView):
     model=Articles
     template_name = 'hhapp/post.html'
+    raise_exception = False
+    def test_func(self):
+        return self.request.user.is_superuser
 
-class create_post(CreateView):
-    fields='__all__'
+
+class create_post(LoginRequiredMixin,CreateView):
+    fields = ['published', 'name', 'url', 'image',]
+    # exclude = ('user',)
     model=Articles
     success_url = reverse_lazy('hh:index')
     template_name = 'hhapp/create.html'
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
 
 class NameContextMixin(ContextMixin):
     def get_context_data(self, *args, **kwargs):
@@ -71,11 +85,15 @@ class TagDetailView(DetailView):
         context['name']='Теги'
         return context
 
-class TagCreateView(CreateView):
+class TagCreateView(LoginRequiredMixin,CreateView):
     fields='__all__'
     model=Tag
     success_url = reverse_lazy('hh:tag_list')
     template_name = 'hhapp/tag_create.html'
+
+    def form_valid(self, form):
+        # form.instance.user = self.request.user
+        return super().form_valid(form)
 
 class TagUpdateView(UpdateView):
     fields='__all__'

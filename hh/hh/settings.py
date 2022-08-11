@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'hhapp'
+    'hhapp',
+    'usersapp'
 ]
 
 MIDDLEWARE = [
@@ -134,3 +135,14 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# переназначение модели пользователя
+AUTH_USER_MODEL='usersapp.BlogUser'
+
+#переходы
+#куда идти после логина
+LOGIN_REDIRECT_URL = '/'
+#куда идти после выхода
+LOGOUT_REDIRECT_URL = '/'
+#куда идти на логин
+LOGIN_URL = '/users/login'
