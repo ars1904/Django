@@ -21,6 +21,13 @@
                         <p class="post-meta">
                             Перейти на
                             <a href="{{item.url}}">эту статью</a>
+                            {% if item.has_image %}
+                                Есть картинка
+                                {% else %}
+                                Нет картинки
+                            {% endif %}
+                                {{item.has_image}}
+                                {{item.some_method}}
                         </p>
                     </div>
                     <!-- Divider-->
