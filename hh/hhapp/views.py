@@ -7,13 +7,15 @@ from django.urls import reverse, reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView,DeleteView
 from django.views.generic.base import ContextMixin
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 # Create your views here.
 
 class main_view(ListView):
+    posts=Articles.active_objects.all()
     model=Articles
+    paginate_by = 2
     template_name='hhapp/index.html'
 
 def contact_view(request):
@@ -74,7 +76,8 @@ class TagListView(ListView, NameContextMixin):
         return context
 
     def get_queryset(self):
-        return Tag.objects.all()
+
+        return Tag.active_objects.all()
 
 class TagDetailView(DetailView):
     model=Tag
