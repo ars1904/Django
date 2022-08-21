@@ -11,11 +11,23 @@
 {% block content %}
                 <div class="row gx-4 gx-lg-5 justify-content-center">
                     <div class="col-md-10 col-lg-8 col-xl-7">
-                        {% if object.image %}
-                            <img src="{{object.image.url}}" width="300">
-                        {% endif %}
-                        </br>
-                        Текст поста про {{object.name}}
+                        {% with all_tags=object.get_all_tags %}
+                            {% for tag in all_tags %}
+                                {{tag}}//
+                            {% endfor %}
+                            <p></p>
+                            <hr>
+                            {% if object.image %}
+                                <img src="{{object.image.url}}" width="300">
+                            {% endif %}
+                            </br>
+                            Текст поста про {{object.name}}
+                            <p></p>
+                            <hr>
+                            {% for tag in all_tags %}
+                                {{tag}}---
+                            {% endfor %}
+                        {% endwith %}
                     </div>
                 </div>
 {% endblock %}

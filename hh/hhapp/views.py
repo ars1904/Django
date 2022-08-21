@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required,user_passes_test
 from django.shortcuts import render, get_object_or_404, HttpResponseRedirect
-from .models import Articles, Tag
+from .models import Articles, Tag, Category
 from .forms import ContactForm, PostForm
 from django.core.mail import send_mail
 from django.urls import reverse, reverse_lazy
@@ -13,9 +13,9 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 # Create your views here.
 
 class main_view(ListView):
-    posts=Articles.active_objects.all()
+    posts=Articles.active_objects.prefetch_related('category').all()
     model=Articles
-    paginate_by = 2
+    paginate_by = 3
     template_name='hhapp/index.html'
 
 def contact_view(request):
@@ -44,6 +44,8 @@ class post(UserPassesTestMixin,DetailView):
     model=Articles
     template_name = 'hhapp/post.html'
     raise_exception = False
+
+
     def test_func(self):
         return self.request.user.is_superuser
 
