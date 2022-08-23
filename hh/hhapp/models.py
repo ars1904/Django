@@ -1,13 +1,15 @@
 from django.db import models
 from django.db.models import Model, CharField, TextField, DateTimeField, ForeignKey
 from django.db.models import ManyToManyField, URLField, FloatField, IntegerField
+from django.utils.functional import cached_property
+
 from usersapp.models import BlogUser
 # Create your models here.
 
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=16, unique=True)
+    name = models.CharField(max_length=16, unique=True, null=True, blank=True)
     description = models.TextField(blank=True)
 
 
@@ -39,11 +41,15 @@ class Articles(IsActiveMixin):
     url = URLField()
     image=models.ImageField(upload_to='posts', null=True, blank=True)
     user=models.ForeignKey(BlogUser, on_delete=models.CASCADE)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, blank=True)
     tags = models.ManyToManyField(Tag)
     rating=models.PositiveSmallIntegerField(default=1)
     is_active=models.BooleanField(default=False)
 
+    @cached_property
+    def get_all_tags(self):
+        tags=Articles.objects.all()
+        return tags
     def has_image(self):
         print('my image: ', self.image)
         print('type', type(self.image))

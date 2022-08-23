@@ -18,7 +18,7 @@
                     <div class="post-preview">
                         <a href="{% url 'hh:post' pk=item.pk %}">
                             <h2 class="post-title">{{item.name}}</h2>
-                            <h3 class="post-subtitle">Дата публикации: {{item.published}}</h3>
+                            <h3 class="post-subtitle">Название категории: {{item.category.name}}</h3>
                         </a>
                         <p class="post-meta">
                             Перейти на
