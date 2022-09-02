@@ -41,7 +41,9 @@ INSTALLED_APPS = [
     'hhapp',
     'usersapp',
     'capapp',
-    'debug_toolbar'
+    'debug_toolbar',
+    'rest_framework',
+    'django_cleanup.apps.CleanupConfig'
 ]
 
 MIDDLEWARE = [

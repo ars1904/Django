@@ -6,7 +6,8 @@
       <sourceFolder url="file://$MODULE_DIR$/hh" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/venv" />
     </content>
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="Python 3.10 (Django)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module" module-name="pythonProject2" />
   </component>
 </module>
