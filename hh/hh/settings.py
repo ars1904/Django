@@ -43,7 +43,9 @@ INSTALLED_APPS = [
     'capapp',
     'debug_toolbar',
     'rest_framework',
+    'rest_framework.authtoken',
     'django_cleanup.apps.CleanupConfig'
+
 ]
 
 MIDDLEWARE = [
@@ -158,3 +160,13 @@ INTERNAL_IPS = [
     "127.0.0.1",
     # ...
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly'
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ]
+}
